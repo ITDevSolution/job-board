@@ -21,5 +21,19 @@ export default NextAuth({
 
   adapter: PrismaAdapter(prisma),
 
-  callbacks: {},
+  pages: {
+    signIn: "/auth/signin",
+  },
+
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user.username = session.user.name
+        .split(" ")
+        .join("")
+        .toLocaleLowerCase()
+
+      session.user.uid = token.sub
+      return session
+    },
+  },
 })
