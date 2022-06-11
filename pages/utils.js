@@ -23,7 +23,7 @@ export default function utils() {
     })
   }
 
-  const generate1newJobWithRandomUser = async () => {
+  const generateOnenewJobWithRandomUser = async () => {
     await fetch("/api/utils", {
       body: JSON.stringify({
         task: "generate_one_job_and_random_user",
@@ -57,9 +57,9 @@ export default function utils() {
       <div className="flex-1 mb-5">
         <button
           className="border px-8 py-2 mt-5 mr-8 font-bold rounded-full hover:bg-black hover:text-white"
-          onClick={generate1newJobWithRandomUser}
+          onClick={generateOnenewJobWithRandomUser}
         >
-          Generate 10 users and some
+          Generate 1 new job
         </button>
       </div>
     </div>
