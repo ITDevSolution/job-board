@@ -13,20 +13,20 @@ export default function utils() {
 
   const generateUsersAndJobs = async () => {
     await fetch("/api/utils", {
-      body: JSON.strinfigy({
+      body: JSON.stringify({
         task: "generate_users_and_jobs",
       }),
       headers: {
-        "Contet-Type": "application/json",
+        "Content-Type": "application/json",
       },
       method: "POST",
     })
   }
 
-  const generateOnenewJobWithRandomUser = async () => {
+  const generateOneJob = async () => {
     await fetch("/api/utils", {
       body: JSON.stringify({
-        task: "generate_one_job_and_random_user",
+        task: "generate_one_job",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function utils() {
       <div className="flex-1 mb-5">
         <button
           className="border px-8 py-2 mt-5 mr-8 font-bold rounded-full hover:bg-black hover:text-white"
-          onClick={generateOnenewJobWithRandomUser}
+          onClick={generateOneJob}
         >
           Generate 1 new job
         </button>

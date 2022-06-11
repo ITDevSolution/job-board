@@ -1,6 +1,7 @@
 import prisma from "lib/prisma"
+import { faker } from "@faker-js/faker"
 
-const generateFakerJob = (user) => ({
+const generateFakeJob = (user) => ({
   title: faker.company.catchPhrase(),
   description: faker.lorem.paragraphs(),
   author: {
@@ -17,18 +18,17 @@ async function handler(req, res) {
     await prisma.user.deleteMany({})
   }
 
-  //Generate one Job and random User
-  if (req.body.task === "generate_one_job_and_random_user") {
+  //Generate one Job
+  if (req.body.task === "generate_one_job") {
     const users = await prisma.user.findMany({
       where: {
         company: true,
       },
     })
-    console.log(users)
+
     await prisma.job.create({
-      data: generateFakerJob(users[0]),
+      data: generateFakeJob(users[0]),
     })
-    console.log(users[0])
   }
 
   //Generate users and jobs
@@ -52,7 +52,7 @@ async function handler(req, res) {
 
     users.forEach(async (user) => {
       await prisma.job.create({
-        data: generateFakerJob(user),
+        data: generateFakeJob(user),
       })
     })
   }
