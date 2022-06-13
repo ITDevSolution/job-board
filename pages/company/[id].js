@@ -11,7 +11,9 @@ export default function company({ jobs, company }) {
     <div>
       <div>
         <Link href={`/`}>
-          <a className="font-gold">back</a>
+          <a href="" className="mb-10 text-sm font-bold underline">
+            back
+          </a>
         </Link>
       </div>
       <div className="text-center">
