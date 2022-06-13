@@ -8,7 +8,7 @@ function signIn({ providers }) {
           <button
             onClick={() =>
               SignIntoProvider(provider.id, {
-                callbackUrl: "/dashboard",
+                callbackUrl: "/",
               })
             }
           >
