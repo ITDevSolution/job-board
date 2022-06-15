@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker"
 const generateFakeJob = (user) => ({
   title: faker.company.catchPhrase(),
   description: faker.lorem.paragraphs(),
+  image: faker.image.business(),
   author: {
     connect: { id: user.id },
   },
@@ -34,7 +35,7 @@ async function handler(req, res) {
   //Generate users and jobs
   if (req.body.task === "generate_users_and_jobs") {
     let count = 0
-    while (count < 10) {
+    while (count < 5) {
       await prisma.user.create({
         data: {
           name: faker.internet.userName().toLowerCase(),

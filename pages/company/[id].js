@@ -5,8 +5,6 @@ import Link from "next/link"
 import Job from "components/Job"
 
 export default function company({ jobs, company }) {
-  console.log(company)
-
   return (
     <div>
       <div>

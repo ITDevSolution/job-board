@@ -1,6 +1,10 @@
 import NextAuth from "next-auth"
+
 import GoogleProvider from "next-auth/providers/google"
 import EmailProvider from "next-auth/providers/email"
+
+// import nodemailer from "nodemailer"
+// import { html, text } from "utils/htmlEmail"
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "lib/prisma"
@@ -14,6 +18,21 @@ export default NextAuth({
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
+      // async sendVerificationRequest({
+      //   identifier: email,
+      //   url,
+      //   provider: { server, from },
+      // }) {
+      //   const { host } = new URL(url)
+      //   const transport = nodemailer.createTransport(server)
+      //   await transport.sendMail({
+      //     to: email,
+      //     from,
+      //     subject: `Sign in to ${host}`,
+      //     text: text({ url, host }),
+      //     html: html({ url, host, email }),
+      //   })
+      // },
     }),
   ],
 
@@ -29,7 +48,8 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
 
   pages: {
-    signIn: "/auth/signin",
+    // signIn: "/auth/signin",
+    signIn: "/login",
   },
 
   callbacks: {
@@ -37,14 +57,14 @@ export default NextAuth({
       session.user.id = user.id
       return Promise.resolve(session)
     },
-    async session({ session, token, user }) {
-      session.user.username = session.user.name
-        .split(" ")
-        .join("")
-        .toLocaleLowerCase()
+    // async session({ session, token, user }) {
+    //   session.user.username = session.user.name
+    //     .split(" ")
+    //     .join("")
+    //     .toLocaleLowerCase()
 
-      session.user.uid = token.sub
-      return session
-    },
+    //   session.user.uid = token.sub
+    //   return session
+    // },
   },
 })

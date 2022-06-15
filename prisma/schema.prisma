@@ -66,6 +66,7 @@ model Job {
   createdAt   DateTime @default(now())
   title       String?
   description String?
+  image       String?
   salary      String?
   location    String?
   published   Boolean  @default(true)
