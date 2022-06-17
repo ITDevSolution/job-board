@@ -1,5 +1,6 @@
 import { getJob } from "lib/data"
 import prisma from "lib/prisma"
+import Image from "next/image"
 
 import Link from "next/link"
 
@@ -8,16 +9,44 @@ export default function Job({ job }) {
     <div className="flex flex-col w-1/2 mx-auto">
       <div className="text-center p-4 m-4">
         <Link href={`/`}>
-          <a href="" className="mb-10 text-sm font-bold underline">
-            back
+          <a href="" className="mb-10 font-bold underline mr-10 text-lg">
+            back Home
+          </a>
+        </Link>
+        <Link href={`/dashboard`}>
+          <a href="" className="mb-10 text-lg font-bold underline">
+            back Dashboard
           </a>
         </Link>
       </div>
+
       <div className="text-center p-4 m-4">
         <h2 className="mb-10 text-4xl font-bold">{job.title}</h2>
       </div>
+      <div className="relative block overflow-hidden text-center">
+        {job.image ? (
+          <Image
+            src={job.image}
+            alt={job.title}
+            layout="fill"
+            objectFit="cover"
+            priority={true}
+            className=""
+          />
+        ) : (
+          <Image
+            src={`/static/images/07.jpg`}
+            alt={job.title}
+            width={480}
+            height={300}
+            objectFit="cover"
+            priority={true}
+            className=" "
+          />
+        )}
+      </div>
 
-      <div className="mb-4 mt-20">
+      <div className="mb-4 mt-20 text-center">
         <div className="pl-16 pr-16 -mt-6">
           <p className="text-base font-normal mt-3">{job.description}</p>
           <div className="mt-4">

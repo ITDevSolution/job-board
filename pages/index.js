@@ -19,6 +19,8 @@ import Loading from "components/Loading"
 import { Hero } from "components/Hero"
 import { TopCompanies } from "components/TopCompanies"
 import { Footer } from "components/Footer"
+import { Header } from "components/Header"
+import Link from "next/link"
 
 export default function Home({ jobs, user }) {
   const [loading, setLoading] = useState(false)
@@ -33,16 +35,12 @@ export default function Home({ jobs, user }) {
 
   return (
     <>
-      <Hero />
+      <Header user={user} />
+      <Hero user={user} />
       <main className="mx-auto max-w-screen-xl px-6 sm:px-8 ">
-        <div className="mt-16 space-y-20">
-          <Jobs jobs={jobs} />
-          <TopCompanies />
-        </div>
-        {/* <FeaturedJobs /> */}
         {session && (
           <>
-            <p className="mb-10 text-2xl font-normal">
+            <p className="my-10 text-2xl font-normal">
               Welcome, {user.name}
               {user.company && (
                 <span className="bg-black text-white uppercase text-sm p-2">
@@ -52,14 +50,18 @@ export default function Home({ jobs, user }) {
             </p>
             {user.company ? (
               <>
-                <button>Click here to post a new job</button>
-                <button>Se all the jobs you posted</button>
-                <button
-                  className="py-4 px-6 m-5 border rounded-full border-neutral-900 text-xl bg-white"
-                  onClick={() => signOut()}
-                >
-                  SignOut
-                </button>
+                <p className="text-3xl font-bold my-5 ">Actions</p>
+                <Link href={`/new`}>
+                  <button className="rounded-full border border-indigo-900 py-4 px-5 hover:bg-slate-300 transition-all dark:hover:bg-white mr-4 hover:text-blue-500 font-bold">
+                    Click here to post a new job
+                  </button>
+                </Link>
+
+                <Link href={`/dashboard`}>
+                  <button className="rounded-full border border-indigo-900 py-4 px-5 hover:bg-slate-300 transition-all dark:hover:bg-white hover:text-blue-500 font-bold">
+                    Se all the jobs you posted
+                  </button>
+                </Link>
               </>
             ) : (
               <>
@@ -74,6 +76,10 @@ export default function Home({ jobs, user }) {
             )}
           </>
         )}
+        <div className="mt-16 space-y-20">
+          <Jobs jobs={jobs} />
+          <TopCompanies />
+        </div>
         {/* <div className="mt-10">
           <div className="text-center p-4 m-4">
             <h2 className="mb-10 text-4xl font-bold">Find a Job!</h2>

@@ -65,7 +65,9 @@ export const Footer = () => {
       <div className="mx-auto max-w-screen-xl px-6 pt-16 sm:px-8">
         <div className="grid grid-cols-1 gap-y-6 gap-x-6 md:!grid-cols-6 md:gap-8 xs:grid-cols-2">
           <div className="mb-4  flex flex-col xs:col-span-2">
-            <span className="text-xl font-bold capitalize">Hiredli</span>
+            <span className="text-xl font-bold capitalize">
+              Flavio | Jobcamp 2022
+            </span>
             <p className="mt-4 max-w-screen-xs text-sm">
               We are on an unwavering mission to be Asia’s most loved job search
               platform, helping people discover any job with any employer in the

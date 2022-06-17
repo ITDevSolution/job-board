@@ -10,7 +10,7 @@ export default function company({ jobs, company }) {
       <div>
         <Link href={`/`}>
           <a href="" className="mb-10 text-sm font-bold underline">
-            back
+            back Home
           </a>
         </Link>
       </div>

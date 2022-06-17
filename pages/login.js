@@ -14,7 +14,6 @@ export default function login({ providers, session, csrfToken }) {
         <h2 className="text-center font-bold uppercase text-zinc-600 tracking-wide">
           Login FlavioBootcamp
         </h2>
-
         <p className="text-center">Login with NextAuth</p>
         <Email providers={providers} csrfToken={csrfToken} />
         <div className="text-center">✦ Or ✦</div>

@@ -5,10 +5,17 @@ import clsx from "clsx"
 import { Button, IconButton } from "./Button"
 import { Logo } from "./Logo"
 import { ThemeSelect, ThemeToggle } from "./ThemeToggle"
-import { AuthenticationDialog } from "./AuthenticationDialog"
 
-export const Header = () => {
+import { signOut } from "next-auth/react"
+
+//Hooks
+import { useRouter } from "next/router"
+import { useSession, getSession } from "next-auth/react"
+
+export const Header = ({ user }) => {
   const [showAuth, setShowAuth] = useState(false)
+  const { data: session, status } = useSession()
+
   return (
     <>
       <header className="sticky inset-x-0 top-0 z-20 flex items-center justify-between bg-white py-2 px-2 shadow-lg dark:bg-slate-900/75 sm:py-3 sm:px-8">
@@ -37,25 +44,52 @@ export const Header = () => {
           </div>
         </div>
         <div className="relative flex basis-1/3 justify-end gap-2">
-          <Link href="/#" passHref>
+          {session ? (
+            <>
+              <Button
+                as="a"
+                variant="outline"
+                className="hidden md:inline-flex"
+              >
+                Welcome {user.name}
+              </Button>
+              <Button
+                variant="solid"
+                className="hidden md:inline-flex"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                as="a"
+                variant="outline"
+                className="hidden md:inline-flex"
+              >
+                For Employers
+              </Button>
+              <Link href="/login">
+                <Button variant="solid" className="hidden md:inline-flex">
+                  Sign In
+                </Button>
+              </Link>
+            </>
+          )}
+          {/* <Link href="/" >
             <Button as="a" variant="outline" className="hidden md:inline-flex">
               For Employers
             </Button>
-          </Link>
-          <Button
-            variant="solid"
-            className="hidden md:inline-flex"
-            onClick={() => setShowAuth(true)}
-          >
-            Sign In
-          </Button>
+          </Link> */}
+
           <ThemeToggle />
         </div>
       </header>
-      <AuthenticationDialog
+      {/* <AuthenticationDialog
         isOpen={showAuth}
         onClose={() => setShowAuth(false)}
-      />
+      /> */}
     </>
   )
 }

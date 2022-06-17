@@ -18,38 +18,43 @@ const featuredJobsCategories = [
   "Accounting & Finance",
 ]
 
-function Jobs({ jobs }) {
+function Jobs({ jobs, isDashboard }) {
   if (!jobs) return null
   return (
     <section id="featured-jobs">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Featured Jobs!</h2>
-        <Button variant="outline" className="hidden xs:inline-flex">
-          Show All
-        </Button>
-      </div>
-      <div id="featured-jobs__categories" className="">
-        <Swiper
-          modules={[FreeMode, Scrollbar, Mousewheel]}
-          scrollbar={{ draggable: true, hide: true }}
-          direction="horizontal"
-          freeMode={true}
-          mousewheel={true}
-          slidesPerView="auto"
-          spaceBetween={8}
-          id="featured-jobs__categories__slider"
-          className="!py-4"
-        >
-          <SwiperSlide className="!w-auto">
-            <Chip label="all" active />
-          </SwiperSlide>
-          {featuredJobsCategories.map((category, i) => (
-            <SwiperSlide key={i} className="!w-auto">
-              <Chip label={category} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {!isDashboard && (
+        <>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">Featured Jobs!</h2>
+            <Button variant="outline" className="hidden xs:inline-flex">
+              Show All
+            </Button>
+          </div>
+          <div id="featured-jobs__categories" className="">
+            <Swiper
+              modules={[FreeMode, Scrollbar, Mousewheel]}
+              scrollbar={{ draggable: true, hide: true }}
+              direction="horizontal"
+              freeMode={true}
+              mousewheel={true}
+              slidesPerView="auto"
+              spaceBetween={8}
+              id="featured-jobs__categories__slider"
+              className="!py-4"
+            >
+              <SwiperSlide className="!w-auto">
+                <Chip label="all" active />
+              </SwiperSlide>
+              {featuredJobsCategories.map((category, i) => (
+                <SwiperSlide key={i} className="!w-auto">
+                  <Chip label={category} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </>
+      )}
+
       {/* !-m-4 to fix boxshadow cropping */}
       <div id="featured-jobs__items" className="!-m-4">
         <Swiper
@@ -72,7 +77,7 @@ function Jobs({ jobs }) {
         >
           {jobs.map((job, index) => (
             <SwiperSlide key={index}>
-              <Job key={index} job={job} />
+              <Job key={index} job={job} isDashboard={isDashboard} />
             </SwiperSlide>
           ))}
         </Swiper>

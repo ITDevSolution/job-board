@@ -4,45 +4,50 @@ import { Button, IconButton } from "./Button"
 import { Transition } from "@headlessui/react"
 // import corporate from "public/static/images/corporate.jpg"
 
-export const Hero = () => {
+export const Hero = ({ user }) => {
   let [showBanner, setShowBanner] = useState(true)
+  const isNotCompany = !user.company
   return (
     <>
-      <div className="relative bg-red-500/20 h-[640px] w-full sm:h-[55vh] md:h-[440px]">
-        <Image
-          src="/static/images/corporate-md.jpg"
-          layout="fill"
-          alt="corporate"
-          objectFit="cover"
-          priority={true}
-          objectPosition="center"
-        />
-        <div className="absolute inset-0 bg-neutral-900/70">
-          <div className="mx-auto max-w-screen-lg">
-            <div className="m-6 min-h-[60px]">
-              {
-                <HeroInnerBanner
-                  show={showBanner}
-                  onClose={() => setShowBanner(false)}
-                />
-              }
-            </div>
-          </div>
+      {isNotCompany && (
+        <>
+          <div className="relative bg-red-500/20 h-[640px] w-full sm:h-[55vh] md:h-[440px]">
+            <Image
+              src="/static/images/corporate-md.jpg"
+              layout="fill"
+              alt="corporate"
+              objectFit="cover"
+              priority={true}
+              objectPosition="center"
+            />
+            <div className="absolute inset-0 bg-neutral-900/70">
+              <div className="mx-auto max-w-screen-lg">
+                <div className="m-6 min-h-[60px]">
+                  {
+                    <HeroInnerBanner
+                      show={showBanner}
+                      onClose={() => setShowBanner(false)}
+                    />
+                  }
+                </div>
+              </div>
 
-          <div className="mx-4 mt-16 text-center flex flex-col items-center">
-            <h1 className="text-white text-3xl font-extrabold uppercase tracking-wide sm:text-4xl md:text-5xl lg:text-6xl">
-              FIND YOUR JOB… easy!
-            </h1>
-            <span className=" text-xl text-white sm:text-2xl">
-              find your next job
-            </span>
-            <div className="mt-8">
-              <SearchForm />
+              <div className="mx-4 mt-16 text-center flex flex-col items-center">
+                <h1 className="text-white text-3xl font-extrabold uppercase tracking-wide sm:text-4xl md:text-5xl lg:text-6xl">
+                  FIND YOUR JOB… easy!
+                </h1>
+                <span className=" text-xl text-white sm:text-2xl">
+                  find your next job
+                </span>
+                <div className="mt-8">
+                  <SearchForm />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <HeroBottomCard />
+          <HeroBottomCard />
+        </>
+      )}
     </>
   )
 }
