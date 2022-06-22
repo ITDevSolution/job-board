@@ -6,7 +6,7 @@ import prisma from "lib/prisma"
 import Job from "components/Job"
 import Link from "next/link"
 
-export default function dashboard({ user, jobs, applications }) {
+export default function Dashboard({ user, jobs, applications }) {
   const { data: session, status } = useSession()
 
   return (

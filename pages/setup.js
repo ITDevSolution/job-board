@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 
-export default function setup() {
+export default function Setup() {
   const router = useRouter()
   const { data: session, status } = useSession()
   const loading = status === "loading"
