@@ -1,4 +1,4 @@
-import { getSession, useSession } from "next-auth/react"
+import { useSession, getSession } from "next-auth/react"
 import { getUser, getJobsPosted, getApplications } from "lib/data"
 import prisma from "lib/prisma"
 
