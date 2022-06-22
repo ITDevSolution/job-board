@@ -1,10 +1,13 @@
-import { getJob } from "lib/data"
+import { getJob, alreadyApplied } from "lib/data"
 import prisma from "lib/prisma"
 import Image from "next/image"
 
+import { useSession, getSession } from "next-auth/react"
+
 import Link from "next/link"
 
-export default function Job({ job }) {
+export default function Job({ job, applied }) {
+  const isDashboard = true
   return (
     <div className="flex flex-col w-1/2 mx-auto">
       <div className="text-center p-4 m-4">
@@ -13,11 +16,13 @@ export default function Job({ job }) {
             back Home
           </a>
         </Link>
-        <Link href={`/dashboard`}>
-          <a href="" className="mb-10 text-lg font-bold underline">
-            back Dashboard
-          </a>
-        </Link>
+        {!isDashboard && (
+          <Link href={`/dashboard`}>
+            <a href="" className="mb-10 text-lg font-bold underline">
+              back Dashboard
+            </a>
+          </Link>
+        )}
       </div>
 
       <div className="text-center p-4 m-4">
@@ -67,17 +72,44 @@ export default function Job({ job }) {
           </div>
         </div>
       </div>
+
+      {applied ? (
+        <div className="mt-20 flex justify-center">
+          <Link href={`/dashboard`}>
+            <button className="border border-white font-bold rounded-full px-7 py-2">
+              You already applied!
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className="mt-20 flex justify-center">
+          <Link href={`/job/${job.id}/apply`}>
+            <button className="border border-white font-bold rounded-full px-7 py-2">
+              Apply to this job
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context)
+
   let job = await getJob(context.params.id, prisma)
   job = JSON.parse(JSON.stringify(job))
+
+  const applied = await alreadyApplied(
+    session.user.id,
+    context.params.id,
+    prisma
+  )
 
   return {
     props: {
       job,
+      applied,
     },
   }
 }

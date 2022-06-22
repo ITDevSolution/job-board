@@ -6,7 +6,8 @@ import { Transition } from "@headlessui/react"
 
 export const Hero = ({ user }) => {
   let [showBanner, setShowBanner] = useState(true)
-  const isNotCompany = !user.company
+
+  let isNotCompany = !user?.company
   return (
     <>
       {isNotCompany && (

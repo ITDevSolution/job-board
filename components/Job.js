@@ -1,7 +1,40 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { useRouter } from "next/router"
+
 function Job({ job, isDashboard }) {
+  const router = useRouter()
+
+  const handleTaskUnpublish = async () => {
+    await fetch("/api/job", {
+      body: JSON.stringify({
+        id: job.id,
+        task: "unpublish",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+    })
+
+    router.reload(window.location.pathname)
+  }
+
+  const handleTaskPublish = async () => {
+    await fetch("/api/job", {
+      body: JSON.stringify({
+        id: job.id,
+        task: "publish",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+    })
+    router.reload(window.location.pathname)
+  }
+
   return (
     <>
       {/* {job.image && ( */}
@@ -28,28 +61,33 @@ function Job({ job, isDashboard }) {
               />
             )}
           </div>
-
-          <div className="flex flex-col p-4 border-t dark:border-slate-600">
-            <h5 className="block truncate text-xl font-semibold capitalize dark:text-white">
-              {job.title}
-            </h5>
-            {isDashboard && job.published && (
-              <span className="bg-black text-white uppercase text-sm p-2 mr-5">
-                ✔ Published
-              </span>
-            )}
-            {isDashboard && !job.published && (
-              <span className="bg-red-900 text-white uppercase text-sm p-2 mr-5">
-                {" "}
-                ❌ Unpublished
-              </span>
-            )}
-            {/* <span className="block truncate text-slate-500 dark:text-slate-400">
-                {job.author.name}
-              </span> */}
-          </div>
         </a>
       </Link>
+      <div className="flex flex-col p-4 border-t dark:border-slate-600">
+        <h5 className="block truncate text-xl font-semibold capitalize dark:text-white">
+          {job.title}
+        </h5>
+        {isDashboard && job.published && (
+          <span
+            onClick={handleTaskUnpublish}
+            className="bg-black text-white uppercase text-sm p-2 mr-5"
+          >
+            ✔ Published
+          </span>
+        )}
+        {isDashboard && !job.published && (
+          <span
+            onClick={handleTaskPublish}
+            className="bg-red-900 text-white uppercase text-sm p-2 mr-5"
+          >
+            {" "}
+            ❌ Unpublished
+          </span>
+        )}
+        {/* <span className="block truncate text-slate-500 dark:text-slate-400">
+                {job.author.name}
+              </span> */}
+      </div>
       {/* )} */}
 
       {/* <Link href={`/job/${job.id}`}>

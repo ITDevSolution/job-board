@@ -1,7 +1,7 @@
 import { useState } from "react"
 import BtnLogin from "./BtnLogin"
 
-function Email({ providers, csrfToken }) {
+function Email({ providers, csrfToken, session }) {
   const [email, setEmail] = useState("")
 
   const handleInputEmail = (e) => {
@@ -20,7 +20,7 @@ function Email({ providers, csrfToken }) {
           Email address
         </label>
         <input
-          className="mt-5 outline-none rounded-full py-2 px-8 border "
+          className="mt-5 outline-none rounded-full py-2 px-8 border text-black font-semibold"
           onChange={handleInputEmail}
           placeholder="Enter email address"
           value={email}

@@ -3,8 +3,8 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import EmailProvider from "next-auth/providers/email"
 
-// import nodemailer from "nodemailer"
-// import { html, text } from "utils/htmlEmail"
+import nodemailer from "nodemailer"
+import { html, text } from "utils/htmlEmail"
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "lib/prisma"
@@ -57,6 +57,7 @@ export default NextAuth({
       session.user.id = user.id
       return Promise.resolve(session)
     },
+
     // async session({ session, token, user }) {
     //   session.user.username = session.user.name
     //     .split(" ")

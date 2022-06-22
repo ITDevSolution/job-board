@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react"
 import { signOut } from "next-auth/react"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 //Hooks
 import { useSession, getSession } from "next-auth/react"
@@ -27,16 +27,19 @@ export default function Home({ jobs, user }) {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  if (session && !session.user.name) {
+  useEffect(() => {
     setLoading(true)
-    router.push("/setup")
+    if (session && !session.user.name) {
+      router.push("/setup")
+    }
     setLoading(false)
-  }
+  }, [session])
 
   return (
     <>
       <Header user={user} />
       <Hero user={user} />
+      {loading && <Loading />}
       <main className="mx-auto max-w-screen-xl px-6 sm:px-8 ">
         {session && (
           <>
@@ -65,12 +68,8 @@ export default function Home({ jobs, user }) {
               </>
             ) : (
               <>
-                <button>see all the jobs you applied to</button>
-                <button
-                  className="py-4 px-6 m-5 border rounded-full border-neutral-900 text-xl bg-white"
-                  onClick={() => signOut()}
-                >
-                  SignOut
+                <button className="border px-7 py-2 border-indigo-900 dark:border-slate-100 dark:hover:bg-slate-50 dark:hover:text-indigo-600 dark:hover:border-indigo-900 transition-colors ease-in-out duration-500 rounded-full font-bold ">
+                  see all the jobs you applied to
                 </button>
               </>
             )}
